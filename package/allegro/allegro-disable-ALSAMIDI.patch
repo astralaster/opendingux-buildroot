@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 245be10..ed0b3ce 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -443,7 +443,7 @@ if(ALLEGRO_UNIX) # not MACOSX
+             # ALSA 0.5 is beyond obsolete.
+             set(ALLEGRO_ALSA_VERSION 9)
+             set(ALLEGRO_WITH_ALSADIGI 1)
+-            set(ALLEGRO_WITH_ALSAMIDI 1)
++            set(ALLEGRO_WITH_ALSAMIDI 0)
+             include_directories(SYSTEM ${ALSA_INCLUDE_DIRS})
+             list(APPEND PLATFORM_LIBS_NON_MODULES ${ALSA_LIBRARIES})
+             add_our_module(alleg-alsadigi src/unix/alsa9.c ${ALSA_LIBRARIES})
