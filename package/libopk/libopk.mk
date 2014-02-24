@@ -5,7 +5,7 @@
 #############################################################
 LIBOPK_VERSION = master
 LIBOPK_SITE = git://github.com/gcwnow/libopk.git
-LIBOPK_DEPENDENCIES = zlib
+LIBOPK_DEPENDENCIES = zlib libini
 LIBOPK_INSTALL_STAGING = YES
 
 LIBOPK_MAKE_ENV = CFLAGS="$(TARGET_CFLAGS)" LDFLAGS="$(TARGET_LDFLAGS)" \
