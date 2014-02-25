@@ -161,39 +161,7 @@ endif
 GCC_HOST_PREREQ = host-gmp host-mpfr
 GCC_TARGET_PREREQ += mpfr gmp
 
-# GCC 4.5.x prerequisites
-ifeq ($(findstring x4.5.,x$(GCC_VERSION)),x4.5.)
-GCC_WITH_HOST_MPC = --with-mpc=$(HOST_DIR)/usr
-GCC_TARGET_PREREQ += mpc
-ifeq ($(BR2_TOOLCHAIN_BUILDROOT),y)
-HOST_SOURCE += host-mpc-source
-endif
-GCC_HOST_PREREQ += host-mpc
-endif
-
-# GCC 4.6.x prerequisites
-ifeq ($(findstring x4.6.,x$(GCC_VERSION)),x4.6.)
-GCC_WITH_HOST_MPC = --with-mpc=$(HOST_DIR)/usr
-GCC_TARGET_PREREQ += mpc
-ifeq ($(BR2_TOOLCHAIN_BUILDROOT),y)
-HOST_SOURCE += host-mpc-source
-endif
-GCC_HOST_PREREQ += host-mpc
-endif
-
-# GCC 4.7.x prerequisites
-ifeq ($(findstring x4.7.,x$(GCC_VERSION)),x4.7.)
-GCC_WITH_HOST_MPC = --with-mpc=$(HOST_DIR)/usr
-GCC_TARGET_PREREQ += mpc
-ifeq ($(BR2_TOOLCHAIN_BUILDROOT),y)
-HOST_SOURCE += host-mpc-source
-endif
-GCC_HOST_PREREQ += host-mpc
-endif
-
-# GCC snapshot prerequisites
-# Since we don't know and it can be quite new just ask for everything known
-ifneq ($(GCC_SNAP_DATE),)
+ifeq ($(BR2_GCC_NEEDS_MPC),y)
 GCC_WITH_HOST_MPC = --with-mpc=$(HOST_DIR)/usr
 GCC_TARGET_PREREQ += mpc
 ifeq ($(BR2_TOOLCHAIN_BUILDROOT),y)
@@ -282,6 +250,7 @@ $(GCC_BUILD_DIR1)/.configured: $(GCC_DIR)/.patched
 	mkdir -p $(GCC_BUILD_DIR1)
 	(cd $(GCC_BUILD_DIR1); rm -rf config.cache; \
 		$(HOST_CONFIGURE_OPTS) \
+		MAKEINFO=missing \
 		$(GCC_DIR)/configure $(QUIET) \
 		--prefix=$(HOST_DIR)/usr \
 		--build=$(GNU_HOST_NAME) \
@@ -308,6 +277,7 @@ $(GCC_BUILD_DIR1)/.configured: $(GCC_DIR)/.patched
 		$(GCC_DECIMAL_FLOAT) \
 		$(SOFT_FLOAT_CONFIG_OPTION) \
 		$(GCC_WITH_ABI) $(GCC_WITH_ARCH) $(GCC_WITH_TUNE) $(GCC_WITH_CPU) \
+		$(DISABLE_LARGEFILE) \
 		$(EXTRA_GCC_CONFIG_OPTIONS) \
 	)
 	touch $@
@@ -348,6 +318,7 @@ $(GCC_BUILD_DIR2)/.configured: $(GCC_DIR)/.patched
 	mkdir -p $(GCC_BUILD_DIR2)
 	(cd $(GCC_BUILD_DIR2); rm -rf config.cache; \
 		$(HOST_CONFIGURE_OPTS) \
+		MAKEINFO=missing \
 		$(GCC_DIR)/configure $(QUIET) \
 		--prefix=$(HOST_DIR)/usr \
 		--build=$(GNU_HOST_NAME) \
@@ -373,6 +344,7 @@ $(GCC_BUILD_DIR2)/.configured: $(GCC_DIR)/.patched
 		$(GCC_DECIMAL_FLOAT) \
 		$(SOFT_FLOAT_CONFIG_OPTION) \
 		$(GCC_WITH_ABI) $(GCC_WITH_ARCH) $(GCC_WITH_TUNE) $(GCC_WITH_CPU) \
+		$(DISABLE_LARGEFILE) \
 		$(EXTRA_GCC_CONFIG_OPTIONS) \
 	)
 	touch $@
@@ -424,6 +396,7 @@ $(GCC_BUILD_DIR3)/.configured: $(GCC_SRC_DIR)/.patched $(GCC_STAGING_PREREQ)
 	ln -snf ../include/ $(HOST_DIR)/usr/$(GNU_TARGET_NAME)/sys-include
 	(cd $(GCC_BUILD_DIR3); rm -rf config.cache; \
 		$(HOST_CONFIGURE_OPTS) \
+		MAKEINFO=missing \
 		$(GCC_SRC_DIR)/configure $(QUIET) \
 		--prefix=$(HOST_DIR)/usr \
 		--build=$(GNU_HOST_NAME) \
