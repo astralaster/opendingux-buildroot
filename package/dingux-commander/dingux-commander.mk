@@ -10,7 +10,7 @@ DINGUX_COMMANDER_DEPENDENCIES = sdl sdl_image sdl_ttf
 DINGUX_COMMANDER_RESDIR = /usr/share/DinguxCommander
 
 define DINGUX_COMMANDER_BUILD_CMDS
-	$(MAKE) CXX="$(TARGET_CXX)" RESDIR="$(DINGUX_COMMANDER_RESDIR)" SDL_CONFIG="$(STAGING_DIR)/usr/bin/sdl-config" LD="$(TARGET_LD)" CONFIG=opendingux -C $(@D)
+	$(MAKE) CXX="$(TARGET_CXX)" RESDIR="$(DINGUX_COMMANDER_RESDIR)" SDL_CONFIG="$(STAGING_DIR)/usr/bin/sdl-config" LD="$(TARGET_LD)" CONFIG=opendingux-a320 -C $(@D)
 endef
 
 ifeq ($(BR2_PACKAGE_GMENU2X),y)
@@ -20,7 +20,7 @@ endef
 endif
 
 define DINGUX_COMMANDER_INSTALL_TARGET_CMDS
-	$(INSTALL) -m 0755 -D $(@D)/output/opendingux/DinguxCommander $(TARGET_DIR)/usr/bin/DinguxCommander
+	$(INSTALL) -m 0755 -D $(@D)/output/opendingux-a320/DinguxCommander $(TARGET_DIR)/usr/bin/DinguxCommander
 	$(INSTALL) -m 0755 -d $(TARGET_DIR)/$(DINGUX_COMMANDER_RESDIR)/
 	$(INSTALL) -m 0644 -t $(TARGET_DIR)/$(DINGUX_COMMANDER_RESDIR)/ $(@D)/res/*
 	$(DINGUX_COMMANDER_INSTALL_TARGET_GMENU2X)
