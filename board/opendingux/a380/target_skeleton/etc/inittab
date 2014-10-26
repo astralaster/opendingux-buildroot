@@ -14,23 +14,14 @@
 # process   == program to run
 
 # Startup the system
-::sysinit:/bin/mount -t proc proc /proc
-::sysinit:/bin/mount -t sysfs sysfs /sys
 ::sysinit:/bin/mount -o size=64k,mode=0755 -t tmpfs tmpfs /dev
 ::sysinit:/bin/mkdir -p /dev/pts
 ::sysinit:/bin/mount -o mode=0620 -t devpts devpts /dev/pts
 ::sysinit:/bin/mkdir -p /dev/shm
-::sysinit:/bin/mount -t tmpfs tmpfs /tmp
-::sysinit:/bin/mount -o size=64k,mode=0755 -t tmpfs tmpfs /media
 ::sysinit:/bin/mount -a
 ::sysinit:/bin/mkdir /var/cache /var/lib /var/lock /var/log /var/run /var/spool /var/tmp
 ::sysinit:/bin/mount -o remount,rw,noatime,nodiratime /boot
 ::sysinit:/bin/echo -n 1 > /proc/sys/vm/overcommit_memory
-
-# Logging junk
-::sysinit:/bin/touch /var/log/messages
-::respawn:/sbin/syslogd -n -m 0
-::respawn:/sbin/klogd -n
 
 ::sysinit:/bin/hostname -F /etc/hostname
 
@@ -52,7 +43,5 @@ tty1::respawn:/usr/sbin/frontend_start
 
 # Stuff to do before rebooting
 null::shutdown:/etc/init.d/rcS stop
-null::shutdown:/usr/bin/killall klogd
-null::shutdown:/usr/bin/killall syslogd
 null::shutdown:/bin/umount -a -r
 null::shutdown:/sbin/swapoff -a
