@@ -4,7 +4,7 @@
 #
 #############################################################
 
-LIBPNG_VERSION = 1.2.50
+LIBPNG_VERSION = 1.2.52
 LIBPNG_SERIES = 12
 LIBPNG_SOURCE = libpng-$(LIBPNG_VERSION).tar.bz2
 LIBPNG_SITE = http://downloads.sourceforge.net/project/libpng/libpng${LIBPNG_SERIES}/$(LIBPNG_VERSION)
