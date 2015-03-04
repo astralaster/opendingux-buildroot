@@ -1,0 +1,7 @@
+# Loopback
+auto lo
+iface lo inet loopback
+
+# Ethernet for QEMU
+auto eth0
+	iface eth0 inet dhcp
