@@ -1,0 +1,21 @@
+diff -u -r gmenu2x-master_old/src/gmenu2x.cpp gmenu2x-master/src/gmenu2x.cpp
+--- gmenu2x-master_old/src/gmenu2x.cpp	2015-05-03 12:57:06.386805542 +0300
++++ gmenu2x-master/src/gmenu2x.cpp	2015-05-03 12:58:12.710804581 +0300
+@@ -650,7 +650,7 @@
+ }
+ 
+ void GMenu2X::explorer() {
+-	FileDialog fd(*this, tr["Select an application"], "sh,bin,py,elf,");
++	FileDialog fd(*this, tr["Select an application"], "sh,bin,py,elf,dge,");
+ 	if (fd.exec()) {
+ 		if (confInt["saveSelection"] && (confInt["section"]!=menu->selSectionIndex() || confInt["link"]!=menu->selLinkIndex()))
+ 			writeConfig();
+@@ -891,7 +891,7 @@
+ }
+ 
+ void GMenu2X::addLink() {
+-	FileDialog fd(*this, tr["Select an application"], "sh,bin,py,elf,");
++	FileDialog fd(*this, tr["Select an application"], "sh,bin,py,elf,dge,");
+ 	if (fd.exec())
+ 		menu->addLink(fd.getPath(), fd.getFile());
+ }
