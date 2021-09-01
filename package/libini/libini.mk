@@ -3,7 +3,7 @@
 # libini
 #
 #############################################################
-LIBINI_VERSION = master
+LIBINI_VERSION = d639fff05597551fa396aa8b5774da3e43434265
 LIBINI_SITE = git://github.com/pcercuei/libini.git
 LIBINI_INSTALL_STAGING = YES
 
